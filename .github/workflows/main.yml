@@ -26,4 +26,5 @@ jobs:
         working-directory: ./addon-todo-app
 
       - name: Build addon for Firefox
-        run: npm run build:firefox 
+        run: npm run build:firefox
+        working-directory: ./addon-todo-app
