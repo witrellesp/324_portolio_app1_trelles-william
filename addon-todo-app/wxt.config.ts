@@ -11,7 +11,7 @@ export default defineConfig({
     host_permissions: [],
     browser_specific_settings: {
         gecko: {
-            id: "{31901f6a-26c8-4605-92de-062f7c7f11e5}",
+            id: "{47176d92-f9c3-4cb8-ab6f-eef99bdbd667}",
             strict_min_version: "109.0"
         }
     },
