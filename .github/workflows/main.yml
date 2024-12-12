@@ -23,6 +23,7 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: ./addon-todo-app
 
       - name: Build addon for Firefox
         run: npm run build:firefox 
