@@ -37,9 +37,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: build de l' addon pour Firefox
-        run: npm run build:firefox
+        run: npx wxt run build:firefox
         working-directory: ./addon-todo-app
 
       - name: Zip Firefox Addon
-        run: npm run zip:firefox
+        run: npx wxt run zip:firefox
         working-directory: ./addon-todo-app
