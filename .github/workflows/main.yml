@@ -52,14 +52,14 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install dependencies
+      - name: Install des depenadances
         run: npm ci
         working-directory: ./addon-todo-app
 
-      - name: Build addon for Firefox
-        run: npx wxt build:firefox
+      - name: Build addon pour Firefox
+        run: npx wxt build
         working-directory: ./addon-todo-app
 
       - name: Zip Firefox Addon
-        run: npx wxt zip:firefox
+        run: npx wxt zip
         working-directory: ./addon-todo-app
