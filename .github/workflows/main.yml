@@ -28,7 +28,7 @@ jobs:
         working-directory: ./addon-todo-app
 
       - name: Build addon pour Firefox
-        run: npx wxt build:firefox
+        run: npx wxt build
         working-directory: ./addon-todo-app
 
       - name: Zip Firefox Addon
