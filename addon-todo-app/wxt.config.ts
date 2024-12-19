@@ -3,6 +3,8 @@ import { defineConfig } from "wxt";
 // See https://wxt.dev/api/config.html
 export default defineConfig({
   extensionApi: "chrome",
+  entrypointsDir: "./entrypoints/popup",
+  outDir: "./build/firefox",
   manifest: {
     name: "Todo App",
     version: "0.0.4",
