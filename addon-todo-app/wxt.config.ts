@@ -2,13 +2,15 @@ import { defineConfig } from "wxt";
 
 export default defineConfig({
   extensionApi: "chrome",
-  entrypointsDir: "./entrypoints/popup", // Define dónde están los entrypoints
-  outDir: "./.output/firefox", // Define el directorio de salida
+  entrypointsDir: "./entrypoints/popup",
+  outDir: "./.output/firefox",
   manifest: {
     name: "Todo App",
     version: "0.0.5",
-    description: "Addon para manejar tareas pendientes",
+    description:
+      "Cet addon permet de gérer une liste de tâche à faire et de la partager.",
     permissions: ["identity"],
+    host_permissions: [],
     browser_specific_settings: {
       gecko: {
         id: "{addon-id}",
