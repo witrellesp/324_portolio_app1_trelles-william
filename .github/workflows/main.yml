@@ -13,6 +13,9 @@ jobs:
   deploy-add-on:
     name: Deploy Addon to Firefox
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./addon-todo-app
 
     steps:
       - name: Checkout code
@@ -25,7 +28,7 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-        working-directory: ./addon-todo-app
+ 
 
       - name: Export version and addon ID
         run: |
@@ -34,18 +37,17 @@ jobs:
 
       - name: Audit and fix vulnerabilities
         run: npm audit fix
-        working-directory: ./addon-todo-app
+
 
       - name: Build addon for Firefox
         run: npm run build:firefox
-        working-directory: ./addon-todo-app
         env:
           FIREFOX_ADDON_ID: ${{ secrets.UUID }}
           ADD_ON_FIREFOX_VERSION: ${{ vars.ADD_ON_FIREFOX_VERSION }}
 
       - name: Zip Firefox Addon
         run: npm run zip:firefox
-        working-directory: ./addon-todo-app
+
 
       - name: List files in .output
         run: ls -R ./addon-todo-app/.output
