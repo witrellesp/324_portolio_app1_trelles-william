@@ -15,41 +15,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2. Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "20"
 
-      # 3. Install dependencies
       - name: Install dependencies
         run: npm ci
         working-directory: ./addon-todo-app
 
-      # 4. Audit and fix vulnerabilities
       - name: Audit and fix vulnerabilities
         run: npm audit fix
         working-directory: ./addon-todo-app
 
-      # 5. Build the Firefox addon
       - name: Build addon for Firefox
         run: npm run build:firefox
         working-directory: ./addon-todo-app
+        env:
+          FIREFOX_ADDON_ID: ${{ secrets.UUID }}
 
-      # 6. Zip the addon
       - name: Zip Firefox Addon
         run: npm run zip:firefox
         working-directory: ./addon-todo-app
 
-      # 7. List generated files
       - name: List files in .output
         run: ls -R ./addon-todo-app/.output
 
-      # 8. Deploy the addon to Firefox Add-ons
       - name: Deploy to Firefox Add-ons
         uses: wdzeng/firefox-addon@v1
         with:

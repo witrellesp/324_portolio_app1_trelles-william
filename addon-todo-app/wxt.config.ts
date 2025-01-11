@@ -13,7 +13,7 @@ export default defineConfig({
     host_permissions: [],
     browser_specific_settings: {
       gecko: {
-        id: "{addon-id}",
+        id:  process.env.FIREFOX_ADDON_ID,
         strict_min_version: "109.0",
       },
     },
