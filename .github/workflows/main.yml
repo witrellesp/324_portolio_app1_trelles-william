@@ -36,6 +36,7 @@ jobs:
         working-directory: ./addon-todo-app
         env:
           FIREFOX_ADDON_ID: ${{ secrets.UUID }}
+          VERSION: ${{ env.VERSION }}
 
       - name: Zip Firefox Addon
         run: npm run zip:firefox
