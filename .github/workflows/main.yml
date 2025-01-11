@@ -37,12 +37,11 @@ jobs:
 
       - name: Build addon pour Firefox
         run: npm run build:firefox
-        working-directory: ./addon-todo-app
+      
 
       - name: Zip Firefox Addon
         run: npm run zip:firefox
-        working-directory: ./addon-todo-app
-
+        
 
       - name: Deploy to Firefox Add-ons
         uses: wdzeng/firefox-addon@v1
