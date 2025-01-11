@@ -11,43 +11,48 @@ on:
 
 jobs:
   deploy-add-on:
-    name: Setup Environment
+    name: Deploy Addon to Firefox
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./addon-todo-app
 
     steps:
+      # 1. Checkout code
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # 2. Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "20"
 
+      # 3. Install dependencies
       - name: Install dependencies
         run: npm ci
+        working-directory: ./addon-todo-app
 
+      # 4. Audit and fix vulnerabilities
       - name: Audit and fix vulnerabilities
         run: npm audit fix
+        working-directory: ./addon-todo-app
 
-
-
-
-      - name: Build addon pour Firefox
+      # 5. Build the Firefox addon
+      - name: Build addon for Firefox
         run: npm run build:firefox
-      
+        working-directory: ./addon-todo-app
 
+      # 6. Zip the addon
       - name: Zip Firefox Addon
-        run: npm run zip:firefox
-        
+        run: |
+          npm run zip:firefox
+          ls -R ./addon-todo-app/.output  
+        working-directory: ./addon-todo-app
 
+      # 7. Deploy the addon to Firefox Add-ons
       - name: Deploy to Firefox Add-ons
         uses: wdzeng/firefox-addon@v1
         with:
           addon-guid: ${{ secrets.UUID }}
-          xpi-path: .output/firefox/addon-todo-app-0.0.5-firefox.zip
+          xpi-path: ./addon-todo-app/.output/firefox/addon-todo-app-0.0.5-firefox.zip
           self-hosted: false
           jwt-issuer: ${{ secrets.FIREFOX_JWT_ISSUER }}
           jwt-secret: ${{ secrets.FIREFOX_JWT_SECRET }}
