@@ -42,17 +42,19 @@ jobs:
 
       # 6. Zip the addon
       - name: Zip Firefox Addon
-        run: |
-          npm run zip:firefox
-          ls -R ./addon-todo-app/.output  
+        run: npm run zip:firefox
         working-directory: ./addon-todo-app
 
-      # 7. Deploy the addon to Firefox Add-ons
+      # 7. List generated files
+      - name: List files in .output
+        run: ls -R ./.output
+
+      # 8. Deploy the addon to Firefox Add-ons
       - name: Deploy to Firefox Add-ons
         uses: wdzeng/firefox-addon@v1
         with:
           addon-guid: ${{ secrets.UUID }}
-          xpi-path: ./addon-todo-app/.output/firefox/addon-todo-app-0.0.5-firefox.zip
+          xpi-path: ./.output/firefox/addon-todo-app-0.0.5-firefox.zip
           self-hosted: false
           jwt-issuer: ${{ secrets.FIREFOX_JWT_ISSUER }}
           jwt-secret: ${{ secrets.FIREFOX_JWT_SECRET }}
