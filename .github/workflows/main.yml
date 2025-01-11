@@ -44,11 +44,15 @@ jobs:
       - name: List files in .output
         run: ls -R ./addon-todo-app/.output
 
+      - name: Generate version dynamically
+        run: echo "VERSION=0.0.$(date +%s)" >> $GITHUB_ENV
+
+
       - name: Deploy to Firefox Add-ons
         uses: wdzeng/firefox-addon@v1
         with:
           addon-guid: ${{ secrets.UUID }}
-          xpi-path: ./addon-todo-app/.output/firefox/addon-todo-app-0.0.6-firefox.zip
+          xpi-path: ./addon-todo-app/.output/firefox/addon-todo-app-${{ env.VERSION }}-firefox.zip
           self-hosted: false
           jwt-issuer: ${{ secrets.FIREFOX_JWT_ISSUER }}
           jwt-secret: ${{ secrets.FIREFOX_JWT_SECRET }}
