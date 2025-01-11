@@ -47,7 +47,7 @@ jobs:
 
       # 7. List generated files
       - name: List files in .output
-        run: ls -R ./.output
+        run: ls -R ./addon-todo-app/.output
 
       # 8. Deploy the addon to Firefox Add-ons
       - name: Deploy to Firefox Add-ons
