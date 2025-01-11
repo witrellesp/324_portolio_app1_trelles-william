@@ -48,10 +48,6 @@ jobs:
       - name: Zip Firefox Addon
         run: npm run zip:firefox
 
-
-      - name: List files in .output
-        run: ls -R ./.output
-
       - name: Deploy to Firefox Add-ons
         uses: wdzeng/firefox-addon@v1
         with:
