@@ -6,7 +6,7 @@ export default defineConfig({
   outDir: "./.output/firefox",
   manifest: {
     name: "Todo App",
-    version: "0.0.5",
+    version: "0.0.6",
     description:
       "Cet addon permet de gérer une liste de tâche à faire et de la partager.",
     permissions: ["identity"],
