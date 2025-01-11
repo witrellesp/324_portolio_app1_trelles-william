@@ -13,6 +13,10 @@ jobs:
   setup-environment:
     name: Setup Environment
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./addon-todo-app
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -23,29 +27,13 @@ jobs:
           node-version: "20"
 
       - name: Install dependencies
-        run: npm install
-        working-directory: ./addon-todo-app
-
-      - name: Validate entrypoints
-        run: ls -la ./addon-todo-app/entrypoints/popup
-
-  build:
-    name: Build Application
-    runs-on: ubuntu-latest
-    needs: setup-environment
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "20"
-
-      - name: Install des depenadances
         run: npm ci
-        working-directory: ./addon-todo-app
+
+      - name: Audit and fix vulnerabilities
+        run: npm audit fix
+
+
+
 
       - name: Build addon pour Firefox
         run: npm run build:firefox
@@ -54,3 +42,13 @@ jobs:
       - name: Zip Firefox Addon
         run: npm run zip:firefox
         working-directory: ./addon-todo-app
+
+
+      - name: Deploy to Firefox Add-ons
+        uses: wdzeng/firefox-addon@v1
+        with:
+          addon-guid: ${{ secrets.UUID }}
+          xpi-path: .output/addon-todo-app-0.0.5-firefox.zip
+          self-hosted: false
+          jwt-issuer: ${{ secrets.FIREFOX_JWT_ISSUER }}
+          jwt-secret: ${{ secrets.FIREFOX_JWT_SECRET }}
