@@ -10,7 +10,7 @@ on:
       - main
 
 jobs:
-  setup-environment:
+  deploy-add-on:
     name: Setup Environment
     runs-on: ubuntu-latest
     defaults:
@@ -48,7 +48,7 @@ jobs:
         uses: wdzeng/firefox-addon@v1
         with:
           addon-guid: ${{ secrets.UUID }}
-          xpi-path: .output/addon-todo-app-0.0.5-firefox.zip
+          xpi-path: .output/firefox/addon-todo-app-0.0.5-firefox.zip
           self-hosted: false
           jwt-issuer: ${{ secrets.FIREFOX_JWT_ISSUER }}
           jwt-secret: ${{ secrets.FIREFOX_JWT_SECRET }}
