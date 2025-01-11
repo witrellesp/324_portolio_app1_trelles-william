@@ -1,0 +1,6 @@
+const repos = [
+  { name: "main", url: "https://github.com/witrellesp/324_portolio_app1_trelles-william" },
+  { name: "dev", url: "https://github.com/witrellesp/324_portolio_app1_trelles-william/tree/develop" }
+];
+const defaultRepoUrl = "https://github.com/witrellesp/324_portolio_app1_trelles-william";
+const defaultAuthToken = "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"; // Make sure the token has full private repo privileges
