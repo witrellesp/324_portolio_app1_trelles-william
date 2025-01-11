@@ -39,7 +39,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
  
-
       - name: Export version and addon ID
         run: |
           echo "ADD_ON_FIREFOX_VERSION=${{ vars.ADD_ON_FIREFOX_VERSION }}" >> $GITHUB_ENV
@@ -47,7 +46,6 @@ jobs:
 
       - name: Audit and fix vulnerabilities
         run: npm audit fix
-
 
       - name: Build addon for Firefox
         run: npm run build:firefox
