@@ -1,0 +1,59 @@
+name: CI/CD Workflow for Addon-todo App
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deploy-add-on:
+    name: Deploy Addon to Firefox
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./addon-todo-app
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm ci
+ 
+
+      - name: Export version and addon ID
+        run: |
+          echo "ADD_ON_FIREFOX_VERSION=${{ vars.ADD_ON_FIREFOX_VERSION }}" >> $GITHUB_ENV
+          echo "FIREFOX_ADDON_ID=${{ secrets.UUID }}" >> $GITHUB_ENV
+
+      - name: Audit and fix vulnerabilities
+        run: npm audit fix
+
+
+      - name: Build addon for Firefox
+        run: npm run build:firefox
+        env:
+          FIREFOX_ADDON_ID: ${{ secrets.UUID }}
+          ADD_ON_FIREFOX_VERSION: ${{ vars.ADD_ON_FIREFOX_VERSION }}
+
+      - name: Zip Firefox Addon
+        run: npm run zip:firefox
+
+      - name: Deploy to Firefox Add-ons
+        uses: wdzeng/firefox-addon@v1
+        with:
+          addon-guid: ${{ secrets.UUID }}
+          xpi-path: ./addon-todo-app/.output/firefox/addon-todo-app-${{ vars.ADD_ON_FIREFOX_VERSION }}-firefox.zip # Modifier la variable selon la version à établir
+          self-hosted: false
+          jwt-issuer: ${{ secrets.FIREFOX_JWT_ISSUER }}
+          jwt-secret: ${{ secrets.FIREFOX_JWT_SECRET }}
+          

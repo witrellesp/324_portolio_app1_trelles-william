@@ -8,7 +8,7 @@
     "dev": "wxt",
     "dev:firefox": "wxt -b firefox",
     "build": "wxt build",
-    "build:firefox": "wxt build -b firefox",
+    "build:firefox": "wxt build --browser=firefox",
     "zip": "wxt zip",
     "zip:firefox": "wxt zip -b firefox",
     "compile": "tsc --noEmit",
@@ -20,6 +20,9 @@
   },
   "devDependencies": {
     "@types/chrome": "^0.0.280",
+    "glob": "^11.0.0",
+    "inflight": "^1.0.6",
+    "rimraf": "^6.0.1",
     "typescript": "^5.6.3",
     "wxt": "^0.19.13"
   },
