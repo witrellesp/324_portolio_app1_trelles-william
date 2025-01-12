@@ -14,7 +14,7 @@
     "compile": "tsc --noEmit",
     "postinstall": "wxt prepare",
     "submit:init": "wxt submit init",
-    "submit:firefox:dry-run": "wxt submit --dry-run --firefox-zip ./addon-todo-app/.output/firefox/${npm_package_name}-${npm_package_version}-firefox.zip --firefox-sources-zip .output/$npm_package_name-$npm_package_version-sources.zip",
+    "submit:firefox:dry-run": "wxt submit --dry-run --firefox-zip .output/${npm_package_name}-${npm_package_version}-firefox.zip --firefox-sources-zip .output/$npm_package_name-$npm_package_version-sources.zip",
     "submit:firefox": "wxt submit --firefox-zip .output/${npm_package_name}-${npm_package_version}-firefox.zip --firefox-sources-zip .output/ $npm_package_name-$npm_package_version-sources.zip",
     "submit:help": "wxt submit --help"
   },
