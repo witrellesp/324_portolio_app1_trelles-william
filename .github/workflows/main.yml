@@ -56,6 +56,16 @@ jobs:
       - name: Zip Firefox Addon
         run: npm run zip:firefox
 
+      - name: Verify zip format
+        run: npm run submit:firefox:dry-run
+        env:
+          FIREFOX_EXTENSION_ID: ${{ secrets.UUID }}
+          FIREFOX_JWT_ISSUER: ${{ secrets.FIREFOX_JWT_ISSUER }}
+          FIREFOX_JWT_SECRET: ${{ secrets.FIREFOX_JWT_SECRET }}
+          ADD_ON_FIREFOX_VERSION: ${{ vars.ADD_ON_FIREFOX_VERSION }}
+
+
+
       - name: Deploy to Firefox Add-ons
         uses: wdzeng/firefox-addon@v1
         with:
